@@ -107,15 +107,30 @@
             var endpointQualifiedMessageId = context.Get<string>(EndpointQualifiedMessageIdContextKey);
             var result = outboxTransactionFactory();
             result.Prepare();
+            var sess = context.TryGet("ManualSessionData", out object ss);
+
+            if (sess)
+            {
+                // we always need to avoid using async/await in here so that the transaction scope can float!
+                return BeginTransactionInternal(result, endpointQualifiedMessageId, (ISession)ss);
+            }
+
             // we always need to avoid using async/await in here so that the transaction scope can float!
             return BeginTransactionInternal(result, endpointQualifiedMessageId);
         }
 
-        static async Task<OutboxTransaction> BeginTransactionInternal(INHibernateOutboxTransaction transaction, string endpointQualifiedMessageId)
+        static async Task<OutboxTransaction> BeginTransactionInternal(INHibernateOutboxTransaction transaction, string endpointQualifiedMessageId, ISession session = null)
         {
             try
             {
-                await transaction.Begin(endpointQualifiedMessageId).ConfigureAwait(false);
+                if (session == null)
+                {
+                    await transaction.Begin(endpointQualifiedMessageId).ConfigureAwait(false);
+                }
+                else
+                {
+                    await transaction.Begin(endpointQualifiedMessageId, session).ConfigureAwait(false);
+                }
                 return transaction;
             }
             catch (Exception e)

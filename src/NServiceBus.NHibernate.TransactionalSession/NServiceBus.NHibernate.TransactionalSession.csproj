@@ -6,6 +6,7 @@
     <AssemblyOriginatorKeyFile>..\NServiceBus.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>NServiceBus.TransactionalSession</RootNamespace>
     <Description>NServiceBus Transactional Session for the NHibernate persistence.</Description>
+    <PackageOutputPath>\\document1\workspace\DotNet Products\packages</PackageOutputPath>
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 

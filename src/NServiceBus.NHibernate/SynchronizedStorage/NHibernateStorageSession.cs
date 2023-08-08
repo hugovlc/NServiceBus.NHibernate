@@ -102,6 +102,7 @@ namespace NServiceBus.Features
                 context.Container.ConfigureComponent(b => persister, DependencyLifecycle.SingleInstance);
                 context.Container.ConfigureComponent(b => new NHibernateSynchronizedStorage(sessionFactory), DependencyLifecycle.SingleInstance);
                 context.Container.ConfigureComponent(b => new NHibernateSynchronizedStorageAdapter(sessionFactory), DependencyLifecycle.SingleInstance);
+                context.Container.ConfigureComponent(b => sessionFactory, DependencyLifecycle.SingleInstance);
                 context.RegisterStartupTask(b => new OutboxCleaner(persister, b.Build<CriticalError>(), timeToKeepDeduplicationData, deduplicationDataCleanupPeriod, outboxCleanupCriticalErrorTriggerTime));
 
                 context.Settings.AddStartupDiagnosticsSection("NServiceBus.Persistence.NHibernate.Outbox", new

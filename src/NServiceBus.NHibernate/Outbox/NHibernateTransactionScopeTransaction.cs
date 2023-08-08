@@ -119,5 +119,9 @@
             sessionBuilder.Connection(connection);
             return sessionBuilder.OpenSession();
         }
+
+        public ISession TryGetSession() { return Session; }
+
+        public Task Begin(string endpointQualifiedMessageId, ISession session) => throw new NotImplementedException();
     }
 }

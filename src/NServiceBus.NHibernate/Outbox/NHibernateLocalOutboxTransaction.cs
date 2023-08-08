@@ -74,6 +74,14 @@
             await concurrencyControlStrategy.Begin(endpointQualifiedMessageId, Session).ConfigureAwait(false);
         }
 
+        public async Task Begin(string endpointQualifiedMessageId, ISession session)
+        {
+            Session = session;
+            transaction = Session.BeginTransaction(isolationLevel);
+
+            await concurrencyControlStrategy.Begin(endpointQualifiedMessageId, Session).ConfigureAwait(false);
+        }
+
         public Task Complete(string endpointQualifiedMessageId, OutboxMessage outboxMessage, ContextBag context)
         {
             return concurrencyControlStrategy.Complete(endpointQualifiedMessageId, Session, outboxMessage, context);

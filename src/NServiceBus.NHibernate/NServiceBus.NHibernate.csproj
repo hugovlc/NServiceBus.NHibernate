@@ -5,6 +5,9 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\NServiceBus.snk</AssemblyOriginatorKeyFile>
     <Description>NHibernate integration for NServiceBus</Description>
+    <!--<RuntimeIdentifier>win7-x64</RuntimeIdentifier>-->
+    <PackageOutputPath>\\document1\workspace\DotNet Products\packages</PackageOutputPath>
+    <!--<PackageId>NServiceBus.NHibernate.Ecdt</PackageId>-->
   </PropertyGroup>
 
   <ItemGroup>

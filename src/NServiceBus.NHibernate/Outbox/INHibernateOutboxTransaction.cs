@@ -12,6 +12,7 @@
         // Prepare is deliberately kept sync to allow floating of TxScope where needed
         void Prepare();
         Task Begin(string endpointQualifiedMessageId);
+        Task Begin(string endpointQualifiedMessageId, ISession session);
         Task Complete(string endpointQualifiedMessageId, OutboxMessage outboxMessage, ContextBag context);
         void BeginSynchronizedSession(ContextBag context);
     }
